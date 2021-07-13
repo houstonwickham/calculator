@@ -43,9 +43,11 @@ for (let i = 0; i < numBtns.length; i++) {
 // on maths button click
 for (let i = 0; i < mathsBtns.length; i++) {
     mathsBtns[i].addEventListener("click", function() {
+        // display alert if too much math
+        if (displayTop.length + display.length > 70) {
+            tooMuchMath();
         //  don't push maths if no number present && /\d/g.test(display[display.length - 1])
-        console.log(/\d/g.test(display[display.length - 1]))
-        if (/\d/g.test(display[display.length - 1])) {
+        } else if (/\d/g.test(display[display.length - 1])) {
             console.log(/\d/g.test(display[display.length - 1]))
             // push existing string plus maths symbol to display-upper
             displayTop = displayTop + display + " " + mathsBtns[i].textContent + " ";
@@ -93,6 +95,11 @@ function clearFunc() {
 clearBtn.addEventListener("click", function() {
     clearFunc();
 });
+
+// too much math function
+function tooMuchMath() {
+    alert("Are you a nerd? That is too many numbers!")
+}
 
 // set display-upper and display-lower on page load
 clearFunc();
