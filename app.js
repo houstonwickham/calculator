@@ -26,7 +26,7 @@ const mathsBtns = document.querySelectorAll('.maths');
 // empty string to hold the display content
 let display = "";
 
-// on num button click concat button copy to display string
+// on num button click concat button copy to display string, if zero, remove zero
 for (let i = 0; i < numBtns.length; i++) {
     numBtns[i].addEventListener("click", function() {
         if (display === "0") {
@@ -69,4 +69,4 @@ clearBtn.addEventListener("click", function() {
 });
 
 // set display-upper and display-lower on page load
-// clearFunc();
+clearFunc();
