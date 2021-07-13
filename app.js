@@ -29,10 +29,14 @@ let display = "";
 // on num button click concat button copy to display string
 for (let i = 0; i < numBtns.length; i++) {
     numBtns[i].addEventListener("click", function() {
+        if (display === "0") {
+           display = ""; 
+        }
         display = display + numBtns[i].textContent;
         displayLower.textContent = display;
     });
 }
+
 
 // on maths button click push existing string plus maths symbol to display-upper
 for (let i = 0; i < mathsBtns.length; i++) {
