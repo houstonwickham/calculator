@@ -23,8 +23,9 @@ const divideBtn = document.querySelector('#divide');
 const numBtns = document.querySelectorAll('.num');
 const mathsBtns = document.querySelectorAll('.maths');
 
-// empty string to hold the display content
+// empty strings to hold the display content
 let display = "";
+let displayTop = "";
 
 // on num button click concat button copy to display string, if zero, remove zero
 for (let i = 0; i < numBtns.length; i++) {
@@ -41,7 +42,9 @@ for (let i = 0; i < numBtns.length; i++) {
 // on maths button click push existing string plus maths symbol to display-upper
 for (let i = 0; i < mathsBtns.length; i++) {
     mathsBtns[i].addEventListener("click", function() {
-        display = display + " " + mathsBtns[i].textContent + " ";
+        displayTop = displayTop + display + " " + mathsBtns[i].textContent + " ";
+        displayUpper.textContent = displayTop;
+        display = "";
         displayLower.textContent = display;
     });
 }
@@ -51,6 +54,10 @@ for (let i = 0; i < mathsBtns.length; i++) {
     // separate calculation and split by order of operations
     // return answer to calculation
     // change display to answer
+equalBtn.addEventListener("click", function() {
+    displayTop = displayTop + display;
+    console.log(displayTop);
+});
 
 // clear function
     // set display upper to nbsp
@@ -60,6 +67,7 @@ for (let i = 0; i < mathsBtns.length; i++) {
         displayUpper.innerHTML = "&nbsp;";
         displayLower.textContent = "0";
         display = "";
+        displayTop = "";
     }
 
 // on clear button press
