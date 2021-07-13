@@ -43,10 +43,14 @@ for (let i = 0; i < numBtns.length; i++) {
 // on maths button click push existing string plus maths symbol to display-upper
 for (let i = 0; i < mathsBtns.length; i++) {
     mathsBtns[i].addEventListener("click", function() {
-        displayTop = displayTop + display + " " + mathsBtns[i].textContent + " ";
-        displayUpper.textContent = displayTop;
-        display = "";
-        displayLower.textContent = display;
+        if (displayTop === "" && (display === "" || display === "0")) {
+            displayTop = "";
+        } else {
+            displayTop = displayTop + display + " " + mathsBtns[i].textContent + " ";
+            displayUpper.textContent = displayTop;
+            display = "";
+            displayLower.textContent = display;
+        }
     });
 }
 
