@@ -26,6 +26,7 @@ const mathsBtns = document.querySelectorAll('.maths');
 // empty strings to hold the display content
 let display = "";
 let displayTop = "";
+let answer = "Answer"
 
 // on num button click concat button copy to display string, if zero, remove zero
 for (let i = 0; i < numBtns.length; i++) {
@@ -50,13 +51,16 @@ for (let i = 0; i < mathsBtns.length; i++) {
 }
 
 // on equal button click
+equalBtn.addEventListener("click", function() {
     // convert string to calculation
     // separate calculation and split by order of operations
     // return answer to calculation
-    // change display to answer
-equalBtn.addEventListener("click", function() {
-    displayTop = displayTop + display;
-    console.log(displayTop);
+
+    // change display to answer and reset display holders
+    displayLower.textContent = answer;
+    displayTop = "";
+    displayUpper.innerHTML = "&nbsp;";
+    display = ""
 });
 
 // clear function
