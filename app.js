@@ -26,7 +26,7 @@ const mathsBtns = document.querySelectorAll('.maths');
 // empty strings to hold the display content
 let display = "";
 let displayTop = "";
-let answer = "Answer"
+let answer = ""
 
 // on num button click concat button copy to display string, if zero, remove zero
 for (let i = 0; i < numBtns.length; i++) {
@@ -48,7 +48,6 @@ for (let i = 0; i < mathsBtns.length; i++) {
             tooMuchMath();
         //  don't push maths if no number present && /\d/g.test(display[display.length - 1])
         } else if (/\d/g.test(display[display.length - 1])) {
-            console.log(/\d/g.test(display[display.length - 1]))
             // push existing string plus maths symbol to display-upper
             displayTop = displayTop + display + " " + mathsBtns[i].textContent + " ";
             displayUpper.textContent = displayTop;
@@ -62,10 +61,13 @@ for (let i = 0; i < mathsBtns.length; i++) {
 // on equal button click
 equalBtn.addEventListener("click", function() {
     // convert string to array and separate by maths symbols
-    console.log(displayTop + display)
+    let str = displayTop + display;
+    str = str.replace(/\s/g, "");
+    str = str.replace("x", "*")
+    console.log(str);
     // separate calculation and split by order of operations
     // return answer to calculation
-
+    answer = "Answer"
     // change display to answer and reset display holders
     displayLower.textContent = answer;
     displayTop = "";
