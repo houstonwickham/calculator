@@ -33,7 +33,7 @@ h1 {
     flex-direction: column;
 }
 #calc {
-    height: 530px;
+    min-height: 530px;
     width: 300px;
     border-radius: 20px;
     background-color: #2e2e2e;
@@ -42,7 +42,7 @@ h1 {
 }
 #display {
     background-color: #202020;
-    height: 85px;
+    min-height: 85px;
     margin:  20px 15px 15px;
     border-radius:10px;
     border: solid 2px rgb(20, 20, 20);
@@ -111,6 +111,7 @@ button:hover {
     background-color: #d6914b;
     grid-column-start: 1;
     grid-column-end: 3;
+    margin-bottom: 5px;
 }
 #clear:active {
 	background-color: #cc8238 !important;
@@ -127,7 +128,8 @@ button:hover {
     font-size:34px;
     font-family: xenera, sans-serif;
     font-weight: 400;
-    margin: 0
+    margin: 0;
+    overflow-wrap: break-word;
 }
 #display-upper {
     color: rgb(78, 219, 78);
@@ -137,6 +139,7 @@ button:hover {
     font-family: xenera, sans-serif;
     font-weight: 400;
     margin: 0;
+    overflow-wrap: break-word;
 }
 .blink {
     animation: blinker 2s linear infinite;
