@@ -40,14 +40,17 @@ for (let i = 0; i < numBtns.length; i++) {
 }
 
 
-// on maths button click push existing string plus maths symbol to display-upper
+// on maths button click
 for (let i = 0; i < mathsBtns.length; i++) {
     mathsBtns[i].addEventListener("click", function() {
-        if (displayTop === "" && (display === "" || display === "0")) {
-            displayTop = "";
-        } else {
+        //  don't push maths if no number present && /\d/g.test(display[display.length - 1])
+        console.log(/\d/g.test(display[display.length - 1]))
+        if (/\d/g.test(display[display.length - 1])) {
+            console.log(/\d/g.test(display[display.length - 1]))
+            // push existing string plus maths symbol to display-upper
             displayTop = displayTop + display + " " + mathsBtns[i].textContent + " ";
             displayUpper.textContent = displayTop;
+            // reset lower display
             display = "";
             displayLower.textContent = display;
         }
@@ -56,7 +59,8 @@ for (let i = 0; i < mathsBtns.length; i++) {
 
 // on equal button click
 equalBtn.addEventListener("click", function() {
-    // convert string to calculation
+    // convert string to array and separate by maths symbols
+    console.log(displayTop + display)
     // separate calculation and split by order of operations
     // return answer to calculation
 
@@ -67,16 +71,22 @@ equalBtn.addEventListener("click", function() {
     display = ""
 });
 
-// clear function
+// maths functions
+    // addition
+    // subtraction
+    // multiplication
+    // division
+
+// clear function 
+function clearFunc() {
     // set display upper to nbsp
+    displayUpper.innerHTML = "&nbsp;";
     // set display lower to 0
-    // reset display to empty string
-    function clearFunc() {
-        displayUpper.innerHTML = "&nbsp;";
-        displayLower.textContent = "0";
-        display = "";
-        displayTop = "";
-    }
+    displayLower.textContent = "0";
+    // reset displays to empty strings
+    display = "";
+    displayTop = "";
+}
 
 // on clear button press
     // run clear function
