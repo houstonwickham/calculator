@@ -140,6 +140,7 @@ button:hover {
     font-weight: 400;
     margin: 0;
     overflow-wrap: break-word;
+    height: 13px;
 }
 .blink {
     animation: blinker 2s linear infinite;

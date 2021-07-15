@@ -1,107 +1,80 @@
-// declare displays and buttons
+// declaring displays and button div for event listener
+const keys = document.querySelector('#buttons');
 const displayUpper = document.querySelector('#display-upper');
 const displayLower = document.querySelector('#display-lower');
-const oneBtn = document.querySelector('#one');
-const twoBtn = document.querySelector('#two');
-const threeBtn = document.querySelector('#three');
-const fourBtn = document.querySelector('#four');
-const fiveBtn = document.querySelector('#five');
-const sixBtn = document.querySelector('#six');
-const sevenBtn = document.querySelector('#seven');
-const eightBtn = document.querySelector('#eight');
-const nineBtn = document.querySelector('#nine');
-const zeroBtn = document.querySelector('#zero');
-const decimalBtn = document.querySelector('#decimal');
-const clearBtn = document.querySelector('#clear');
-const equalBtn = document.querySelector('#equal');
-const addBtn = document.querySelector('#plus');
-const subtractBtn = document.querySelector('#minus');
-const multiplyBtn = document.querySelector('#multiply');
-const divideBtn = document.querySelector('#divide');
+let operator = "";
+let firstNumber = "";
+let secondNumber = "";
 
-// node lists of all num buttons and all maths buttons to loop through
-const numBtns = document.querySelectorAll('.num');
-const mathsBtns = document.querySelectorAll('.maths');
 
-// empty strings to hold the display content
-let display = "";
-let displayTop = "";
-let answer = ""
-
-// on num button click concat button copy to display string, if zero, remove zero
-for (let i = 0; i < numBtns.length; i++) {
-    numBtns[i].addEventListener("click", function() {
-        if (display === "0") {
-           display = ""; 
+// event listener on entire buttons div
+keys.addEventListener("click", function(event) {
+    // click isn't on a button do nothing
+    if (!event.target.closest('button')) return;
+    // declare click key, key value, display values, key class, and previous key class?
+    const key = event.target;
+    const keyValue = event.target.textContent;
+    const displayUpperValue = displayUpper.textContent;
+    const displayLowerValue = displayLower.textContent;
+    const type = key.className;
+    const previous = keys.className;
+    
+    if (type === "num") {
+        // reset if last press was equal
+        if (previous === "equal") {
+            displayLower.textContent = "0";
         }
-        display = display + numBtns[i].textContent;
-        displayLower.textContent = display;
-    });
-}
-
-
-// on maths button click
-for (let i = 0; i < mathsBtns.length; i++) {
-    mathsBtns[i].addEventListener("click", function() {
-        // display alert if too much math
-        if (displayTop.length + display.length > 70) {
-            tooMuchMath();
-        //  don't push maths if no number present && /\d/g.test(display[display.length - 1])
-        } else if (/\d/g.test(display[display.length - 1])) {
-            // push existing string plus maths symbol to display-upper
-            displayTop = displayTop + display + " " + mathsBtns[i].textContent + " ";
-            displayUpper.textContent = displayTop;
-            // reset lower display
-            display = "";
-            displayLower.textContent = display;
+        // if 0 replace 0 with key, else replace with key plus existing number
+        if (displayLowerValue === '0' || previous === 'maths') {
+            displayLower.textContent = keyValue
+          } else {
+            displayLower.textContent = displayLowerValue + keyValue
+          }
+    } else if (type === "maths") {
+        // reset if last press was equal
+        if (previous === "equal") {
+            displayLower.textContent = "0";
+         }
+        //  set firstnumber as existing number, save operator for calc func
+        firstNumber = displayLowerValue;
+        operator = key.textContent;
+        //  if no first number remove bottom number, if yes first number get answer
+        if (displayUpper.textContent === "") {
+            displayLower.textContent = "";
+        } else {
+            displayLower.textContent = calculate(firstNumber, operator, secondNumber);
         }
-    });
-}
+        // add first number to dusplay upper
+        displayUpper.textContent = firstNumber;
+    } else if (type === "equal") {
+        // set second number
+        secondNumber = displayLowerValue;
+        // set lower display to answer
+        displayLower.textContent = calculate(firstNumber, operator, secondNumber);
+        // empty upper display
+        displayUpper.textContent = "";
+    } else if (type === "clear") {
+        keys.className = "";
+        displayLower.textContent = "0";
+        displayUpper.textContent = "";
+    }
 
-// on equal button click
-equalBtn.addEventListener("click", function() {
-    // convert string to array and separate by maths symbols
-    let str = displayTop + display;
-    str = str.replace(/\s/g, "");
-    str = str.replace("x", "*")
-    console.log(str);
-    // separate calculation and split by order of operations
-    // return answer to calculation
-    answer = "Answer"
-    // change display to answer and reset display holders
-    displayLower.textContent = answer;
-    displayTop = "";
-    displayUpper.innerHTML = "&nbsp;";
-    display = ""
+    // set previous after button click and everything executes
+    keys.className = type;
+    console.log(firstNumber)
 });
 
-// maths functions
-    // addition
-    // subtraction
-    // multiplication
-    // division
+// do the math things
+function calculate (firstNumber, operator, secondNumber) {
+    firstNumber = parseInt(firstNumber)
+    secondNumber = parseInt(secondNumber)
+  
+    if (operator === '+') return firstNumber + secondNumber
+    if (operator === '-') return firstNumber - secondNumber
+    if (operator === 'x') return firstNumber * secondNumber
+    if (operator === '&#247;') return firstNumber / secondNumber
+  }
 
-// clear function 
-function clearFunc() {
-    // set display upper to nbsp
-    displayUpper.innerHTML = "&nbsp;";
-    // set display lower to 0
-    displayLower.textContent = "0";
-    // reset displays to empty strings
-    display = "";
-    displayTop = "";
-}
-
-// on clear button press
-    // run clear function
-clearBtn.addEventListener("click", function() {
-    clearFunc();
-});
-
-// too much math function
-function tooMuchMath() {
-    alert("Are you a nerd? That is too many numbers!")
-}
-
-// set display-upper and display-lower on page load
-clearFunc();
+// broken things:
+// multiple equations don't work right
+// need way to clear after equals without erasing answer
