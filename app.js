@@ -25,16 +25,16 @@ keys.addEventListener("click", function(event) {
             displayLower.textContent = "0";
         }
         // if 0 replace 0 with key, else replace with key plus existing number
-        if (displayLowerValue === '0' || previous === 'maths') {
+        if (displayLowerValue === '0') {
             displayLower.textContent = keyValue
-          } else {
+        } else if ( previous === "maths" && displayUpper.textContent !== "") {
+            displayLower.textContent = keyValue;
+        } else {
+            console.log('test3')
+            displayUpper.textContent = displayLower.textContent;
             displayLower.textContent = displayLowerValue + keyValue
-          }
+        }
     } else if (type === "maths") {
-        // reset if last press was equal
-        if (previous === "equal") {
-            displayLower.textContent = "0";
-         }
         //  set firstnumber as existing number, save operator for calc func
         firstNumber = displayLowerValue;
         operator = key.textContent;
@@ -42,6 +42,7 @@ keys.addEventListener("click", function(event) {
         if (displayUpper.textContent === "") {
             displayLower.textContent = "";
         } else {
+            secondNumber = displayLower.textContent;
             displayLower.textContent = calculate(firstNumber, operator, secondNumber);
         }
         // add first number to dusplay upper
@@ -61,7 +62,6 @@ keys.addEventListener("click", function(event) {
 
     // set previous after button click and everything executes
     keys.className = type;
-    console.log(firstNumber)
 });
 
 // do the math things
@@ -77,4 +77,3 @@ function calculate (firstNumber, operator, secondNumber) {
 
 // broken things:
 // multiple equations don't work right
-// need way to clear after equals without erasing answer
